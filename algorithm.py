@@ -17,17 +17,22 @@ w.writerow(['car_id', 'vel', 'pos_x', 'pos_y',
 
 
 def add_entry_lane(lane_id):
+    lane_id = lane_id.decode('utf-8')
     entry_lanes.append(lane_id)
+    print("Entry lanes: " + str(entry_lanes))
 
 
 def add_exit_lane(lane_id):
+    lane_id = lane_id.decode('utf-8')
     exit_lanes.append(lane_id)
+    print("Exit lanes: " + str(exit_lanes))
 
 
 def detect_turn_car(velocity, pos_x, pos_y, car_id, lane_id):
     try:
         car_id = car_id.decode('utf-8')
         lane_id = lane_id.decode('utf-8')
+        lane_id = lane_id[:-2]
 
         if lane_id in exit_lanes:
             return 0
@@ -64,7 +69,7 @@ def detect_turn_car(velocity, pos_x, pos_y, car_id, lane_id):
         w.writerow([car_id, velocity, pos_x, pos_y,
                     pvel, pposx, pposy, value])
 
-        return result
+        return value
 
     except:
         traceback.print_exc(file=sys.stdout)
